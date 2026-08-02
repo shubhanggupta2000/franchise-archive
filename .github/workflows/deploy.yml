@@ -5,10 +5,7 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+permissions: {}
 
 concurrency:
   group: pages
@@ -19,9 +16,15 @@ jobs:
     name: Build for GitHub Pages
     runs-on: ubuntu-latest
 
+    permissions:
+        contents: read
+        pages: read
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+            persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -46,6 +49,9 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     needs: build
+    permissions:
+        pages: write
+        id-token: write
     runs-on: ubuntu-latest
     environment:
       name: github-pages
