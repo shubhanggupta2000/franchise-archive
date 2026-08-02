@@ -1,0 +1,33 @@
+import type { Franchise } from "./types";
+
+export const dceu: Franchise = {
+  id: "dceu",
+  name: "DC Extended Universe",
+  shortName: "DCEU",
+  tagline: "Ten years, one Snyder Cut, and a universe that rebooted itself in 2025.",
+  description:
+    "Warner Bros.' shared DC continuity from Man of Steel to Aquaman and the Lost Kingdom. Closed out in 2023 and succeeded by James Gunn's rebooted DCU, tracked here as its own franchise.",
+  accent: "#3A6EA5",
+  chronoIsOfficial: false,
+  sagas: ["Founding Films", "Extended Universe", "Elseworlds & Spin-offs", "Final Chapter"],
+  entries: [
+    { id: "dceu-man-of-steel", title: "Man of Steel", year: 2013, dateLabel: "June 14, 2013", type: "Film", releaseOrder: 1, chronoOrder: 1, saga: "Founding Films", status: "released", synopsis: "Clark Kent embraces the Superman identity for the first time as a fellow Kryptonian survivor threatens Earth." },
+    { id: "dceu-bvs", title: "Batman v Superman: Dawn of Justice", year: 2016, dateLabel: "March 25, 2016", type: "Film", releaseOrder: 2, chronoOrder: 2, saga: "Founding Films", status: "released", synopsis: "A vigilante Batman and a mistrusted Superman are manipulated toward a fight by Lex Luthor, who has bigger plans." },
+    { id: "dceu-suicide-squad-1", title: "Suicide Squad", year: 2016, dateLabel: "August 5, 2016", type: "Film", releaseOrder: 3, chronoOrder: 3, saga: "Extended Universe", status: "released", synopsis: "A black-ops team of imprisoned supervillains is sent on a deniable mission in exchange for reduced sentences." },
+    { id: "dceu-wonder-woman-1", title: "Wonder Woman", year: 2017, dateLabel: "June 2, 2017", type: "Film", releaseOrder: 4, chronoOrder: 0, saga: "Extended Universe", status: "released", note: "Opens in World War I", synopsis: "Diana of Themyscira leaves her hidden island for the front lines of World War I to end the war she believes a god is causing." },
+    { id: "dceu-justice-league", title: "Justice League", year: 2017, dateLabel: "November 17, 2017", type: "Film", releaseOrder: 5, chronoOrder: 4, saga: "Extended Universe", status: "released", note: "Also released as Zack Snyder's Justice League (2021)", synopsis: "Batman and Wonder Woman recruit Flash, Aquaman, and Cyborg to stop an ancient invader named Steppenwolf." },
+    { id: "dceu-aquaman-1", title: "Aquaman", year: 2018, dateLabel: "December 21, 2018", type: "Film", releaseOrder: 6, chronoOrder: 5, saga: "Extended Universe", status: "released", synopsis: "Arthur Curry has to claim the throne of Atlantis to stop his half-brother from declaring war on the surface world." },
+    { id: "dceu-shazam-1", title: "Shazam!", year: 2019, dateLabel: "April 5, 2019", type: "Film", releaseOrder: 7, chronoOrder: 6, saga: "Elseworlds & Spin-offs", status: "released", synopsis: "A foster kid discovers he can transform into an adult superhero by saying one word." },
+    { id: "dceu-birds-of-prey", title: "Birds of Prey", year: 2020, dateLabel: "February 7, 2020", type: "Film", releaseOrder: 8, chronoOrder: 7, saga: "Elseworlds & Spin-offs", status: "released", synopsis: "Freshly single from the Joker, Harley Quinn joins forces with a band of Gotham women to protect a girl with a target on her back." },
+    { id: "dceu-wonder-woman-1984", title: "Wonder Woman 1984", year: 2020, dateLabel: "December 25, 2020", type: "Film", releaseOrder: 9, chronoOrder: 8, saga: "Extended Universe", status: "released", synopsis: "Decades later, Diana faces a wish-granting stone that is quietly unraveling the world." },
+    { id: "dceu-snyder-cut", title: "Zack Snyder's Justice League", year: 2021, dateLabel: "March 18, 2021", type: "Film", releaseOrder: 10, chronoOrder: 4, saga: "Extended Universe", status: "released", note: "Director's original four-hour cut", synopsis: "Snyder's restored vision of the Justice League's formation, released after years of fan campaigning." },
+    { id: "dceu-suicide-squad-2", title: "The Suicide Squad", year: 2021, dateLabel: "August 6, 2021", type: "Film", releaseOrder: 11, chronoOrder: 9, saga: "Extended Universe", status: "released", note: "Standalone reset, not a direct sequel", synopsis: "A new, more expendable lineup of Task Force X is dropped onto an island to destroy a Nazi-era experiment." },
+    { id: "dceu-peacemaker-1", title: "Peacemaker (Season 1)", year: 2022, dateLabel: "January 13, 2022", type: "Series", releaseOrder: 12, chronoOrder: 10, saga: "Extended Universe", status: "released", synopsis: "Christopher Smith recovers from The Suicide Squad and gets recruited into a black-ops team with an alarming agenda." },
+    { id: "dceu-batman", title: "The Batman", year: 2022, dateLabel: "March 4, 2022", type: "Film", releaseOrder: 13, chronoOrder: 11, saga: "Elseworlds & Spin-offs", status: "released", note: "Separate continuity, Matt Reeves' Bat-verse", synopsis: "A younger, still-learning Batman hunts a serial killer who is targeting Gotham's corrupt elite." },
+    { id: "dceu-black-adam", title: "Black Adam", year: 2022, dateLabel: "October 21, 2022", type: "Film", releaseOrder: 14, chronoOrder: 12, saga: "Extended Universe", status: "released", synopsis: "An ancient champion is freed from his tomb after 5,000 years, and the Justice Society is sent to contain him." },
+    { id: "dceu-shazam-2", title: "Shazam! Fury of the Gods", year: 2023, dateLabel: "March 17, 2023", type: "Film", releaseOrder: 15, chronoOrder: 13, saga: "Elseworlds & Spin-offs", status: "released", synopsis: "The foster-kid superhero family faces the vengeful daughters of Atlas, who want their stolen powers back." },
+    { id: "dceu-flash", title: "The Flash", year: 2023, dateLabel: "June 16, 2023", type: "Film", releaseOrder: 16, chronoOrder: 14, saga: "Final Chapter", status: "released", note: "Closes out the DCEU timeline", synopsis: "Barry Allen runs fast enough to alter his own past, and fractures the multiverse doing it." },
+    { id: "dceu-blue-beetle", title: "Blue Beetle", year: 2023, dateLabel: "August 18, 2023", type: "Film", releaseOrder: 17, chronoOrder: 15, saga: "Final Chapter", status: "released", synopsis: "A college grad bonds with an alien scarab that wraps him in living armor, and a weapons corporation wants it back." },
+    { id: "dceu-aquaman-2", title: "Aquaman and the Lost Kingdom", year: 2023, dateLabel: "December 22, 2023", type: "Film", releaseOrder: 18, chronoOrder: 16, saga: "Final Chapter", status: "released", note: "The DCEU's final release", synopsis: "Arthur Curry teams up with his imprisoned half-brother to stop an ancient Atlantean warlord wielding a cursed black trident." },
+  ],
+};

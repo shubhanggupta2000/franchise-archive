@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-body: 'IBM Plex Serif', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+  --color-ink: #12141c;
+  --color-ink-soft: #1b1e29;
+  --color-paper: #efe6d3;
+  --color-paper-dim: #e4d9c0;
+  --color-gold: #c9973f;
+  --color-gold-bright: #e2b563;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+/* Visible keyboard focus, everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-gold-bright);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Sprocket-hole film strip rail */
+.film-rail {
+  background-image: radial-gradient(circle, rgba(239, 230, 211, 0.55) 3px, transparent 3.5px);
+  background-size: 100% 28px;
+  background-repeat: repeat-y;
+  background-position: center top;
+}
+
+/* Aged paper card texture */
+.paper-grain {
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(0,0,0,0.035) 0, transparent 45%),
+    radial-gradient(circle at 80% 60%, rgba(0,0,0,0.03) 0, transparent 40%);
+}
+
+.mask-fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+  mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.85; }
+  94% { opacity: 1; }
+}
+.marquee-flicker {
+  animation: flicker 6s infinite;
+}
