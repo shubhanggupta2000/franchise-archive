@@ -49,13 +49,16 @@ Outputs a static site to `dist/`.
 ## Deploying (free, forever)
 
 **Vercel**
+
 ```bash
 npm i -g vercel
 vercel
 ```
+
 Framework preset: Vite. No environment variables needed.
 
 **Cloudflare Pages**
+
 1. Push this folder to a GitHub repo.
 2. In the Cloudflare dashboard: Pages -> Create a project -> Connect to Git.
 3. Build command: `npm run build`, output directory: `dist`.
@@ -68,3 +71,36 @@ If you'd rather not load Google Fonts at runtime, download the three font famili
 as `.woff2` files, drop them in `public/fonts/`, and replace the `@import url(...)`
 line at the top of `src/index.css` with local `@font-face` declarations pointing at
 `/fonts/...`. Everything else already works without any network access.
+
+## Contributing
+
+Contributions are welcome!
+
+Franchise Archive is an open-source project, and contributions from the community are encouraged.
+
+You can contribute by:
+
+- Adding new franchises
+- Correcting release dates
+- Correcting chronological orders
+- Adding missing movies, series, episodes, or specials
+- Improving the user interface
+- Fixing bugs
+- Improving accessibility
+- Improving documentation
+
+Before contributing, please read the [Contributing Guide](CONTRIBUTING.md).
+
+The recommended workflow is:
+
+1. Fork the repository.
+2. Clone your fork.
+3. Create a new branch.
+4. Make your changes.
+5. Run `npm run build`.
+6. Test your changes locally.
+7. Commit your changes.
+8. Push your branch.
+9. Open a Pull Request.
+
+All Pull Requests are reviewed before being merged into the `main` branch.
