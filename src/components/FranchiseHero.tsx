@@ -1,4 +1,5 @@
 import type { Franchise } from "../data/types";
+import { franchiseIcons } from "./icons";
 
 interface Props {
   franchise: Franchise;
@@ -7,49 +8,85 @@ interface Props {
 export default function FranchiseHero({ franchise }: Props) {
   const films = franchise.entries.filter((e) => e.type === "Film").length;
   const series = franchise.entries.filter((e) => e.type !== "Film").length;
+
   const years = franchise.entries.map((e) => e.year);
-  const span = `${Math.min(...years)}\u2013${Math.max(...years)}`;
+  const span = `${Math.min(...years)}–${Math.max(...years)}`;
+  const Icon = franchiseIcons[franchise.id];
 
   return (
-    <section
-      key={franchise.id}
-      className="paper-grain rounded-sm bg-paper px-5 py-6 text-ink sm:px-8 sm:py-8"
-    >
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="font-display text-3xl tracking-wide uppercase sm:text-5xl">
-          {franchise.name}
-        </h2>
-        <span
-          className="rounded-sm px-2 py-1 font-mono text-[11px] tracking-wide text-paper uppercase"
-          style={{ backgroundColor: franchise.accent }}
-        >
-          {span}
-        </span>
+    <section className="paper-grain rounded-sm bg-paper p-6 text-ink sm:p-8">
+      <div className="flex gap-6 sm:gap-8">
+        <div className="flex w-20 shrink-0 items-start justify-center sm:w-28">
+          {Icon && (
+            <Icon className="h-26 w-26 object-contain sm:h-24 sm:w-24" />
+          )}
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-6">
+            <h1 className="font-display text-4xl leading-none uppercase sm:text-5xl">
+              {franchise.name}
+            </h1>
+
+            <span
+              className="shrink-0 rounded-sm px-2 py-1 font-mono text-[11px] tracking-wide text-paper uppercase"
+              style={{
+                backgroundColor: franchise.accent,
+              }}
+            >
+              {span}
+            </span>
+          </div>
+
+          <p className="mt-5 font-body text-lg italic text-ink/70">
+            {franchise.tagline}
+          </p>
+
+          <p className="mt-4 max-w-4xl font-body text-base leading-relaxed text-ink/80">
+            {franchise.description}
+          </p>
+
+          <div className="mt-6 border-t border-ink/15 pt-5">
+            <div className="flex flex-wrap gap-8">
+              <div>
+                <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
+                  Films
+                </p>
+
+                <p className="font-mono text-lg">{films}</p>
+              </div>
+
+              <div>
+                <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
+                  Series & specials
+                </p>
+
+                <p className="font-mono text-lg">{series}</p>
+              </div>
+
+              <div>
+                <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
+                  Sagas
+                </p>
+
+                <p className="font-mono text-lg">{franchise.sagas.length}</p>
+              </div>
+
+              <div>
+                <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
+                  Chronology
+                </p>
+
+                <p className="font-mono text-lg uppercase">
+                  {franchise.chronoIsOfficial
+                    ? "Confirmed"
+                    : "Community consensus"}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <p className="mt-1 font-body text-base italic text-ink/70 sm:text-lg">{franchise.tagline}</p>
-      <p className="mt-4 max-w-3xl font-body text-sm leading-relaxed text-ink/85 sm:text-base">
-        {franchise.description}
-      </p>
-      <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2 border-t border-ink/15 pt-4 font-mono text-xs uppercase">
-        <div>
-          <dt className="text-ink/50">Films</dt>
-          <dd className="text-base text-ink">{films}</dd>
-        </div>
-        <div>
-          <dt className="text-ink/50">Series &amp; specials</dt>
-          <dd className="text-base text-ink">{series}</dd>
-        </div>
-        <div>
-          <dt className="text-ink/50">Sagas</dt>
-          <dd className="text-base text-ink">{franchise.sagas.length}</dd>
-        </div>
-        <div>
-          <dt className="text-ink/50">Chronology</dt>
-          <dd className="text-base text-ink">
-            {franchise.chronoIsOfficial ? "Confirmed" : "Community consensus"}
-          </dd>
-        </div>
-      </dl>
     </section>
   );
 }
