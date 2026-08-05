@@ -16,11 +16,11 @@ export default function FranchiseHero({ franchise }: Props) {
   return (
     <section className="paper-grain rounded-sm bg-paper p-6 text-ink sm:p-8">
       <div className="flex gap-6 sm:gap-8">
-        <div className="flex w-20 shrink-0 items-start justify-center sm:w-28">
-          {Icon && (
+        {Icon && (
+          <div className="flex w-20 shrink-0 items-start justify-center sm:w-28">
             <Icon className="h-26 w-26 object-contain sm:h-24 sm:w-24" />
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-6">
