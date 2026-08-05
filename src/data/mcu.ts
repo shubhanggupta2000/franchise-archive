@@ -9,7 +9,7 @@ export const mcu: Franchise = {
     "Thirty-plus films and a growing shelf of Disney+ series, all sharing one timeline since 2008. Grouped here by Phase and Saga the way Marvel Studios itself frames them.",
   accent: "#B33A3A",
   chronoIsOfficial: false,
-  sagas: ["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6"],
+  sagas: ["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7"],
   entries: [
     { id: "mcu-iron-man", title: "Iron Man", year: 2008, dateLabel: "May 2, 2008", type: "Film", releaseOrder: 1, chronoOrder: 3, saga: "Phase 1", status: "released", synopsis: "Weapons manufacturer Tony Stark builds a powered suit to escape captivity, then keeps building them to protect the world he helped arm." },
     { id: "mcu-hulk", title: "The Incredible Hulk", year: 2008, dateLabel: "June 13, 2008", type: "Film", releaseOrder: 2, chronoOrder: 5, saga: "Phase 1", status: "released", synopsis: "Bruce Banner, on the run from the military, searches for a cure to the rage monster living inside him." },
@@ -62,5 +62,7 @@ export const mcu: Franchise = {
     { id: "mcu-brand-new-day", title: "Spider-Man: Brand New Day", year: 2026, dateLabel: "July 31, 2026", type: "Film", releaseOrder: 49, chronoOrder: 47, saga: "Phase 6", status: "upcoming", synopsis: "Peter Parker navigates life as a publicly known hero, with a cast reportedly including the Fantastic Four's Human Torch." },
     { id: "mcu-doomsday", title: "Avengers: Doomsday", year: 2026, dateLabel: "December 18, 2026", type: "Film", releaseOrder: 50, chronoOrder: 48, saga: "Phase 6", status: "upcoming", note: "Reunites the Russo brothers; merges Fox's X-Men into MCU continuity", synopsis: "The Avengers, the New Avengers, the Fantastic Four, and a team of X-Men from another universe unite against Victor von Doom." },
     { id: "mcu-secret-wars", title: "Avengers: Secret Wars", year: 2027, dateLabel: "2027", type: "Film", releaseOrder: 51, chronoOrder: 49, saga: "Phase 6", status: "upcoming", synopsis: "The Multiverse Saga's finale, closing out Phase 6 in a story pulled from Marvel's incursion-and-collapse comic event." },
+    { id: "mcu-black-panther-3", title: "Black Panther III", year: 2028, dateLabel: "TBA", type: "Film", releaseOrder: 52, chronoOrder: 50, saga: "Phase 7", status: "upcoming", synopsis: "The third Black Panther film, announced as part of Marvel Studios' future theatrical slate. The film is expected to continue the story of Wakanda and the Black Panther legacy, with David Jonnsen set to debut as T'Challa II/Toussant." },
+    { id: "mcu-ghost-rider", title: "Ghost Rider", year: 2028, dateLabel: "TBA", type: "Film", releaseOrder: 53, chronoOrder: 51, saga: "Phase 7", status: "upcoming", synopsis: "A new standalone Ghost Rider film starring Ryan Gosling as the supernatural Marvel antihero. Shawn Levy is set to direct, with the project announced as part of Marvel Studios' 2028 plans." },
   ],
 };

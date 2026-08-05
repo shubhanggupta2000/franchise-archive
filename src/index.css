@@ -48,14 +48,6 @@ body {
   }
 }
 
-/* Sprocket-hole film strip rail */
-.film-rail {
-  background-image: radial-gradient(circle, rgba(239, 230, 211, 0.55) 3px, transparent 3.5px);
-  background-size: 100% 28px;
-  background-repeat: repeat-y;
-  background-position: center top;
-}
-
 /* Aged paper card texture */
 .paper-grain {
   background-image:

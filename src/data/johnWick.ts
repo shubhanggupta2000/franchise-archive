@@ -1,0 +1,25 @@
+import type { Franchise } from "./types";
+
+export const johnWick: Franchise = {
+  id: "johnWick",
+  name: "John Wick Universe",
+  shortName: "John Wick",
+  tagline: "The world of assassins has rules.",
+  description:
+    "A stylized action universe centered around legendary assassin John Wick, the High Table and a hidden global underworld.",
+  accent: "#795548",
+  chronoIsOfficial: true,
+  sagas: ["John Wick Saga"],
+  entries: [
+    { id: "john-wick", title: "John Wick", year: 2014, dateLabel: "October 24, 2014", type: "Film", releaseOrder: 1, chronoOrder: 3, saga: "John Wick Saga", status: "released", timeline: "2014", synopsis: "Legendary retired assassin John Wick returns to the underworld after the death of his wife and the theft of his prized Mustang, setting him on a relentless path of revenge." },
+    { id: "john-wick-2", title: "John Wick: Chapter 2", year: 2017, dateLabel: "February 10, 2017", type: "Film", releaseOrder: 2, chronoOrder: 4, saga: "John Wick Saga", status: "released", timeline: "Days after the first film", synopsis: "Bound by an old blood oath, John travels to Rome where he becomes the target of the world's deadliest assassins after completing one final impossible task." },
+    { id: "john-wick-3", title: "John Wick: Chapter 3 – Parabellum", year: 2019, dateLabel: "May 17, 2019", type: "Film", releaseOrder: 3, chronoOrder: 5, saga: "John Wick Saga", status: "released", timeline: "Minutes after Chapter 2", synopsis: "Declared excommunicado and hunted by every assassin on Earth, John fights for survival while seeking freedom from the High Table." },
+    { id: "john-wick-4", title: "John Wick: Chapter 4", year: 2023, dateLabel: "March 24, 2023", type: "Film", releaseOrder: 4, chronoOrder: 7, saga: "John Wick Saga", status: "released", timeline: "Months after Chapter 3", synopsis: "John wages his final war against the High Table, challenging the Marquis de Gramont in a duel that may finally earn his freedom." },
+    { id: "continental", title: "The Continental: From the World of John Wick", year: 2023, dateLabel: "September 22, 2023", type: "Series", releaseOrder: 5, chronoOrder: 2, saga: "John Wick Saga", status: "released", timeline: "1975", note: "Three-episode prequel miniseries, aired on Peacock.", synopsis: "A young Winston Scott fights to seize control of New York's Continental Hotel decades before the rise of John Wick." },
+    { id: "ballerina", title: "From the World of John Wick: Ballerina", year: 2025, dateLabel: "June 6, 2025", type: "Film", releaseOrder: 6, chronoOrder: 6, saga: "John Wick Saga", status: "released", timeline: "Between Chapter 3 and Chapter 4", note: "Spin-off starring Ana de Armas as Eve Macarro; confirmed by Lionsgate to sit in the Chapter 3–4 gap.", synopsis: "Eve Macarro, trained by the Ruska Roma, embarks on a brutal quest for vengeance while crossing paths with John Wick." },
+    { id: "caine", title: "From the World of John Wick: Caine", year: 2027, dateLabel: "TBA (targeting 2027)", type: "Film", releaseOrder: 7, chronoOrder: 8, saga: "John Wick Saga", status: "upcoming", timeline: "After Chapter 4", note: "Directed by and starring Donnie Yen, also featuring Rina Sawayama; announced at CinemaCon 2025, no confirmed release date yet.", synopsis: "Following the ending of Chapter 4, the blind assassin Caine attempts to leave his violent past behind while facing a new threat from the underworld." },
+    { id: "under-the-high-table", title: "John Wick: Under the High Table", year: 2027, dateLabel: "TBA", type: "Series", releaseOrder: 8, chronoOrder: 9, saga: "John Wick Saga", status: "upcoming", timeline: "Immediately after Chapter 4", note: "Written by Robert Levine, Stahelski directing the pilot; still seeking a network/streamer as of early 2026, no release date set.", synopsis: "With the High Table left in a fragile state after John's war, a new generation of assassins jockeys for power while old loyalists resist the change." },
+    { id: "john-wick-5", title: "John Wick: Chapter 5", year: 2027, dateLabel: "TBA (targeting 2027–2028)", type: "Film", releaseOrder: 9, chronoOrder: 10, saga: "John Wick Saga", status: "upcoming", note: "Officially announced by Lionsgate at CinemaCon in April 2025, with Keanu Reeves and director Chad Stahelski confirmed to return; no release date or plot details set yet.", synopsis: "A new chapter in John Wick's story, continuing the saga with Keanu Reeves returning in the title role after Chapter 4's ambiguous ending." },
+    { id: "john-wick-animated", title: "Untitled John Wick Animated Prequel", year: 2028, dateLabel: "TBA (expected 2028)", type: "Film", releaseOrder: 10, chronoOrder: 1, saga: "John Wick Saga", status: "upcoming", timeline: "Years before John Wick (2014)", note: "Announced at CinemaCon 2025; expected to be held for release after Caine.", synopsis: "An animated feature depicting the legendary 'Impossible Task' that allowed John Wick to leave the assassin world and marry Helen." },
+  ]
+};
