@@ -9,7 +9,7 @@ export const mcu: Franchise = {
     "Thirty-plus films and a growing shelf of Disney+ series, all sharing one timeline since 2008. Grouped here by Phase and Saga the way Marvel Studios itself frames them.",
   accent: "#B33A3A",
   chronoIsOfficial: false,
-  sagas: ["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7S"],
+  sagas: ["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7"],
   entries: [
     { id: "mcu-iron-man", title: "Iron Man", year: 2008, dateLabel: "May 2, 2008", type: "Film", releaseOrder: 1, chronoOrder: 3, saga: "Phase 1", status: "released", synopsis: "Weapons manufacturer Tony Stark builds a powered suit to escape captivity, then keeps building them to protect the world he helped arm." },
     { id: "mcu-hulk", title: "The Incredible Hulk", year: 2008, dateLabel: "June 13, 2008", type: "Film", releaseOrder: 2, chronoOrder: 5, saga: "Phase 1", status: "released", synopsis: "Bruce Banner, on the run from the military, searches for a cure to the rage monster living inside him." },
