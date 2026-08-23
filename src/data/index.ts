@@ -17,25 +17,27 @@ import { johnWick } from "./johnWick";
 import { gotUniverse } from "./gotUniverse";
 import { breakingBadUniverse } from "./breakingBadUniverse";
 import { conjuringUniverse } from "./conjuringUniverse";
+import { theBoys } from "./theBoys";
 
 export const franchises: Franchise[] = [
   mcu,
+  starWars,
+  wizardingWorld,
   dceu,
   dcu,
-  xmen,
-  spiderVerse,
-  starWars,
-  starTrek,
-  wizardingWorld,
   middleEarth,
-  narnia,
+  jamesBond,
+  gotUniverse,
   fastFurious,
   missionImpossible,
-  jamesBond,
   johnWick,
-  gotUniverse,
+  theBoys,
+  xmen,
   breakingBadUniverse,
+  starTrek,
+  spiderVerse,
   arrowverse,
+  narnia,
   conjuringUniverse,
 ];
 
