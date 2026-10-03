@@ -1,6 +1,10 @@
 export type EntryType = "Film" | "Series" | "Special";
 export type EntryStatus = "released" | "upcoming";
 
+export interface Episode {
+
+}
+
 export interface Entry {
   id: string;
   title: string;
@@ -22,6 +26,8 @@ export interface Entry {
   crossover?: string;
   canon?: "main" | "optional";
   extras?: Extra[];
+  episodeFrom?: number;
+  episodeTo?: number;
 }
 
 interface Extra {
