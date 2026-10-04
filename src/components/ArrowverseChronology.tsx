@@ -1,4 +1,13 @@
-import { arrowverseChronology } from "../data/arrowverse";
+import type { ArrowverseEpisode } from "../data/arrowverseEpisodes";
+import type { Entry } from "../data/types";
+import EntryCard from "./EntryCard";
+import SeriesEpisodeCard from "./SeriesEpisodeCard";
+
+interface Props {
+  episodes: ArrowverseEpisode[];
+  additionalSeries: Entry[];
+  accent: string;
+}
 
 const eraSections = [
   {
@@ -24,11 +33,15 @@ const eraSections = [
   },
 ] as const;
 
-export default function ArrowverseChronology() {
+export default function ArrowverseChronology({
+  episodes,
+  additionalSeries,
+  accent,
+}: Props) {
   return (
     <div className="flex flex-col gap-12">
       {eraSections.map((era) => {
-        const entries = arrowverseChronology.filter(
+        const entries = episodes.filter(
           (entry) => entry.era === era.id,
         );
 
@@ -73,42 +86,7 @@ export default function ArrowverseChronology() {
                         />
                       </div>
 
-                      {/* Episode card */}
-                      <div className="rounded-sm bg-ink-soft/50 p-5 sm:p-6">
-                        <div className="flex flex-wrap items-start justify-between gap-3">
-                          <div>
-                            <p className="font-mono text-[10px] tracking-[0.2em] text-gold-bright/70 uppercase">
-                              {entry.show} · S
-                              {String(entry.season).padStart(2, "0")}E
-                              {String(entry.episode).padStart(2, "0")}
-                            </p>
-
-                            <h3 className="mt-2 font-display text-lg tracking-widest text-paper uppercase sm:text-xl">
-                              {entry.title}
-                            </h3>
-                          </div>
-
-                          <span className="font-mono text-[10px] text-paper/35">
-                            {entry.year}
-                          </span>
-                        </div>
-
-                        {entry.crossover && (
-                          <div className="mt-4 inline-flex rounded-sm border border-gold-bright/20 px-3 py-1">
-                            <span className="font-mono text-[10px] tracking-wider text-gold-bright/70 uppercase">
-                              {entry.crossover}
-                            </span>
-                          </div>
-                        )}
-
-                        {entry.type === "web" && (
-                          <div className="mt-4 inline-flex rounded-sm border border-paper/15 px-3 py-1">
-                            <span className="font-mono text-[10px] tracking-wider text-paper/50 uppercase">
-                              Web Series
-                            </span>
-                          </div>
-                        )}
-                      </div>
+                      <SeriesEpisodeCard episode={entry} />
                     </div>
                   </li>
                 ))}
@@ -117,6 +95,38 @@ export default function ArrowverseChronology() {
           </section>
         );
       })}
+
+      {additionalSeries.length > 0 && (
+        <section>
+          <div className="mb-6">
+            <div className="mb-3 flex items-center gap-3">
+              <span className="font-mono text-xs tracking-[0.2em] text-gold-bright/60">
+                04
+              </span>
+              <h2 className="font-display text-2xl tracking-[0.15em] text-gold-bright uppercase sm:text-3xl">
+                Additional series
+              </h2>
+              <div className="h-px flex-1 bg-paper/15" aria-hidden="true" />
+            </div>
+            <p className="max-w-2xl font-body text-sm leading-relaxed text-paper/50">
+              These shows are part of the franchise overview, but the supplied
+              episode-by-episode order does not include their seasons.
+            </p>
+          </div>
+
+          <ol className="flex flex-col gap-5">
+            {additionalSeries.map((entry, index) => (
+              <li key={entry.id}>
+                <EntryCard
+                  entry={entry}
+                  accent={accent}
+                  displayOrder={index + 1}
+                />
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
     </div>
   );
 }
