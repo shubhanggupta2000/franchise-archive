@@ -86,7 +86,9 @@ export default function ArrowverseChronology({
                         />
                       </div>
 
-                      <SeriesEpisodeCard episode={entry} />
+                      <SeriesEpisodeCard
+                        episode={{ ...entry, franchiseId: "arrowverse" }}
+                      />
                     </div>
                   </li>
                 ))}
@@ -121,6 +123,7 @@ export default function ArrowverseChronology({
                   entry={entry}
                   accent={accent}
                   displayOrder={index + 1}
+                  franchiseId="arrowverse"
                 />
               </li>
             ))}

@@ -6,6 +6,7 @@ import FranchiseHero from "./components/FranchiseHero";
 import OrderToggle, { type OrderMode } from "./components/OrderToggle";
 import FilmStrip from "./components/FilmStrip";
 import AboutModal from "./components/AboutModal";
+import BackToTop from "./components/BackToTop";
 
 export default function App() {
   const [activeId, setActiveId] = useState(franchises[0].id);
@@ -63,6 +64,7 @@ export default function App() {
           </p>
         </div>
       </footer>
+      <BackToTop />
     </div>
   );
 }
