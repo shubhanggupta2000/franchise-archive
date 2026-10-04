@@ -677,17 +677,6 @@ export const arrowverseChronology: ArrowverseEpisode[] = [
     crossover: "Flash vs. Arrow",
     era: "pre-crisis",
   },
-
-  {
-    id: "arrow-s3-e8",
-    show: "Arrow",
-    season: 3,
-    episode: 8,
-    title: "The Brave and the Bold",
-    year: 2014,
-    crossover: "Flash vs. Arrow",
-    era: "pre-crisis",
-  },
   // ============================================================
   // CRISIS ON INFINITE EARTHS
   // ============================================================

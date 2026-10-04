@@ -1,7 +1,5 @@
+import Logo from "../assets/Star_wars.svg";
+
 export default function StarWarsIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 40 40" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* your custom mark's paths go here */}
-    </svg>
-  );
+  return <img src={Logo} alt="Star Wars logo" className={className} />;
 }

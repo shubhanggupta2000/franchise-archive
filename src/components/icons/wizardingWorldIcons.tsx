@@ -1,7 +1,5 @@
+import Logo from "../assets/Wizarding_World.svg";
+
 export default function WizardingWorldIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 40 40" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* your custom mark's paths go here */}
-    </svg>
-  );
+  return <img src={Logo} alt="Wizarding World logo" className={className} />;
 }

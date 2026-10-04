@@ -15,11 +15,9 @@ export default function FranchiseHero({ franchise }: Props) {
 
   return (
     <section className="paper-grain rounded-sm bg-paper p-6 text-ink sm:p-8">
-      <div className="flex gap-6 sm:gap-8">
+      <div className="flex items-center gap-5 sm:gap-6">
         {Icon && (
-          <div className="flex w-20 shrink-0 items-start justify-center sm:w-28">
-            <Icon className="h-26 w-26 object-contain sm:h-24 sm:w-24" />
-          </div>
+          <Icon className="h-14 w-auto max-w-[96px] shrink-0 object-contain sm:h-16 sm:max-w-[120px]" />
         )}
 
         <div className="min-w-0 flex-1">
@@ -38,52 +36,46 @@ export default function FranchiseHero({ franchise }: Props) {
             </span>
           </div>
 
-          <p className="mt-5 font-body text-lg italic text-ink/70">
+          <p className="mt-3 font-body text-lg italic text-ink/70">
             {franchise.tagline}
           </p>
+        </div>
+      </div>
 
-          <p className="mt-4 max-w-4xl font-body text-base leading-relaxed text-ink/80">
-            {franchise.description}
-          </p>
+      <p className="mt-4 max-w-4xl font-body text-base leading-relaxed text-ink/80">
+        {franchise.description}
+      </p>
 
-          <div className="mt-6 border-t border-ink/15 pt-5">
-            <div className="flex flex-wrap gap-8">
-              <div>
-                <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
-                  Films
-                </p>
+      <div className="mt-6 border-t border-ink/15 pt-5">
+        <div className="flex flex-wrap gap-8">
+          <div>
+            <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
+              Films
+            </p>
+            <p className="font-mono text-lg">{films}</p>
+          </div>
 
-                <p className="font-mono text-lg">{films}</p>
-              </div>
+          <div>
+            <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
+              Series & specials
+            </p>
+            <p className="font-mono text-lg">{series}</p>
+          </div>
 
-              <div>
-                <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
-                  Series & specials
-                </p>
+          <div>
+            <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
+              Sagas
+            </p>
+            <p className="font-mono text-lg">{franchise.sagas.length}</p>
+          </div>
 
-                <p className="font-mono text-lg">{series}</p>
-              </div>
-
-              <div>
-                <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
-                  Sagas
-                </p>
-
-                <p className="font-mono text-lg">{franchise.sagas.length}</p>
-              </div>
-
-              <div>
-                <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
-                  Chronology
-                </p>
-
-                <p className="font-mono text-lg uppercase">
-                  {franchise.chronoIsOfficial
-                    ? "Confirmed"
-                    : "Community consensus"}
-                </p>
-              </div>
-            </div>
+          <div>
+            <p className="font-mono text-[10px] tracking-widest text-ink/50 uppercase">
+              Chronology
+            </p>
+            <p className="font-mono text-lg uppercase">
+              {franchise.chronoIsOfficial ? "Confirmed" : "Community consensus"}
+            </p>
           </div>
         </div>
       </div>

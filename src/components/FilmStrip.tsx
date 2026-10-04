@@ -1,4 +1,5 @@
-import type { Franchise } from "../data/types";
+import { useState } from "react";
+import type { Entry, Franchise } from "../data/types";
 import ArrowverseChronology from "./ArrowverseChronology";
 import EntryCard from "./EntryCard";
 import type { OrderMode } from "./OrderToggle";
@@ -8,9 +9,113 @@ interface Props {
   mode: OrderMode;
 }
 
+function ExpandableSeasonEntry({
+  entry,
+  entries,
+  accent,
+  displayOrder,
+}: {
+  entry: Entry;
+  entries: Entry[];
+  accent: string;
+  displayOrder: number;
+}) {
+  const [expanded, setExpanded] = useState(false);
+
+  const episodes = entries
+    .filter(
+      (item) =>
+        item.type === "Episode" &&
+        item.series === entry.series &&
+        item.season === entry.season &&
+        (item.episode ?? 0) >= (entry.episodeFrom ?? 1) &&
+        (entry.episodeTo === undefined ||
+          (item.episode ?? 0) <= entry.episodeTo),
+    )
+    .sort((a, b) => (a.episode ?? 0) - (b.episode ?? 0));
+
+  return (
+    <li>
+      <EntryCard
+        entry={entry}
+        accent={accent}
+        displayOrder={displayOrder}
+        onClick={
+          episodes.length ? () => setExpanded((open) => !open) : undefined
+        }
+        expanded={expanded}
+      />
+
+      {expanded && episodes.length > 0 && (
+        <ol className="ml-8 mt-3 border-l-2 border-paper/20 pl-4">
+          {episodes.map((episode) => (
+            <li key={episode.id} className="flex gap-4 py-3">
+              <span className="font-mono text-paper/50">{episode.episode}</span>
+              <div>
+                <p className="font-display text-lg uppercase">
+                  {episode.title}
+                </p>
+                <p className="font-mono text-xs text-paper/50">
+                  {episode.dateLabel}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+    </li>
+  );
+}
+
+function collapseAgentsOfShieldReleaseSeasons(
+  entries: Entry[],
+  allEntries: Entry[],
+): Entry[] {
+  const seenSeasons = new Set<number>();
+
+  return [...entries]
+    .sort((a, b) => a.releaseOrder - b.releaseOrder)
+    .filter((entry) => {
+      if (
+        entry.series !== "Agents of S.H.I.E.L.D." ||
+        entry.season === undefined
+      ) {
+        return true;
+      }
+
+      if (seenSeasons.has(entry.season)) return false;
+      seenSeasons.add(entry.season);
+      return true;
+    })
+    .map((entry) => {
+      if (
+        entry.series !== "Agents of S.H.I.E.L.D." ||
+        entry.season === undefined
+      ) {
+        return entry;
+      }
+
+      const episodeCount = allEntries.filter(
+        (item) =>
+          item.type === "Episode" &&
+          item.series === entry.series &&
+          item.season === entry.season,
+      ).length;
+
+      return {
+        ...entry,
+        id: `mcu-agents-of-shield-s${entry.season}-release`,
+        title: `Agents of S.H.I.E.L.D.: Season ${entry.season}`,
+        episodeFrom: undefined,
+        episodeTo: undefined,
+        synopsis: `Full season of Agents of S.H.I.E.L.D. Select to view all ${episodeCount} episodes.`,
+      };
+    });
+}
+
 export default function FilmStrip({ franchise, mode }: Props) {
   if (mode === "chrono" && franchise.id === "arrowverse") {
-    return <ArrowverseChronology />
+    return <ArrowverseChronology />;
   }
   if (mode === "chrono" && franchise.id === "xmen") {
     const timelines = [
@@ -88,21 +193,21 @@ export default function FilmStrip({ franchise, mode }: Props) {
     );
   }
   if (mode === "chrono") {
-    const sorted = [...franchise.entries].sort(
-      (a, b) => a.chronoOrder - b.chronoOrder,
-    );
+    const sorted = franchise.entries
+      .filter((entry) => entry.type !== "Episode")
+      .sort((a, b) => a.chronoOrder - b.chronoOrder);
 
     return (
       <div className="film-rail relative pl-6 sm:pl-10">
         <ol className="flex flex-col gap-5">
           {sorted.map((entry, i) => (
-            <li key={entry.id}>
-              <EntryCard
-                entry={entry}
-                accent={franchise.accent}
-                displayOrder={i + 1}
-              />
-            </li>
+            <ExpandableSeasonEntry
+              key={entry.id}
+              entry={entry}
+              entries={franchise.entries}
+              accent={franchise.accent}
+              displayOrder={i + 1}
+            />
           ))}
         </ol>
       </div>
@@ -111,9 +216,12 @@ export default function FilmStrip({ franchise, mode }: Props) {
 
   const bySaga = franchise.sagas.map((saga) => ({
     saga,
-    entries: franchise.entries
-      .filter((e) => e.saga === saga)
-      .sort((a, b) => a.releaseOrder - b.releaseOrder),
+    entries: collapseAgentsOfShieldReleaseSeasons(
+      franchise.entries
+        .filter((entry) => entry.saga === saga && entry.type !== "Episode")
+        .sort((a, b) => a.releaseOrder - b.releaseOrder),
+      franchise.entries,
+    ),
   }));
 
   return (
@@ -135,13 +243,13 @@ export default function FilmStrip({ franchise, mode }: Props) {
             <div className="film-rail relative pl-6 sm:pl-10">
               <ol className="flex flex-col gap-5">
                 {group.entries.map((entry) => (
-                  <li key={entry.id}>
-                    <EntryCard
-                      entry={entry}
-                      accent={franchise.accent}
-                      displayOrder={entry.releaseOrder}
-                    />
-                  </li>
+                  <ExpandableSeasonEntry
+                    key={entry.id}
+                    entry={entry}
+                    entries={franchise.entries}
+                    accent={franchise.accent}
+                    displayOrder={entry.releaseOrder}
+                  />
                 ))}
               </ol>
             </div>
