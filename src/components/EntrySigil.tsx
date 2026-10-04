@@ -162,15 +162,13 @@ export function getSigilUrl(
     return iconUrls.arrowverse;
   }
 
-  for (const [alias, file] of aliases) {
-    const normalizedAlias = normalize(alias);
-    if (
-      normalizedValues.some((value) =>
-        ` ${value} `.includes(` ${normalizedAlias} `),
-      )
-    ) {
-      const url = iconUrls[file];
-      if (url) return url;
+  for (const value of normalizedValues) {
+    for (const [alias, file] of aliases) {
+      const normalizedAlias = normalize(alias);
+      if (` ${value} `.includes(` ${normalizedAlias} `)) {
+        const url = iconUrls[file];
+        if (url) return url;
+      }
     }
   }
 
