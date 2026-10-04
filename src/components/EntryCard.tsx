@@ -43,7 +43,19 @@ export default function EntryCard({
           )}
         </div>
         <h3 className="mt-1 font-display text-xl leading-tight tracking-wide uppercase sm:text-2xl">
-          {entry.title}
+          {onClick ? (
+            <button
+              type="button"
+              className="appearance-none border-0 bg-transparent p-0 text-left"
+              style={{ color: "inherit", font: "inherit" }}
+              onClick={onClick}
+              aria-expanded={expanded}
+            >
+              {entry.title}
+            </button>
+          ) : (
+            entry.title
+          )}
         </h3>
         <p className="mt-1 font-mono text-[11px] uppercase tracking-wide text-ink/50">
           {entry.saga}
@@ -63,16 +75,5 @@ export default function EntryCard({
   const className =
     "paper-grain relative flex w-full gap-4 rounded-sm bg-paper p-4 text-left text-ink shadow-[0_6px_18px_rgba(0,0,0,0.25)] sm:p-5";
 
-  return onClick ? (
-    <button
-      type="button"
-      className={className}
-      onClick={onClick}
-      aria-expanded={expanded}
-    >
-      {content}
-    </button>
-  ) : (
-    <article className={className}>{content}</article>
-  );
+  return <article className={className}>{content}</article>;
 }
