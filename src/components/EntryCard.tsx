@@ -19,7 +19,7 @@ export default function EntryCard({
   franchiseId,
 }: Props) {
   const sigil = getSigilUrl(
-    [entry.series, entry.title, entry.id, entry.saga],
+    [entry.series, entry.title],
     undefined,
     franchiseId,
   );
