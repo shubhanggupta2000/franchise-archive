@@ -1,4 +1,5 @@
 import type { Entry } from "../data/types";
+import { getSigilUrl } from "./EntrySigil";
 
 interface Props {
   entry: Entry;
@@ -6,6 +7,7 @@ interface Props {
   displayOrder: number;
   onClick?: () => void;
   expanded?: boolean;
+  franchiseId?: string;
 }
 
 export default function EntryCard({
@@ -14,7 +16,13 @@ export default function EntryCard({
   displayOrder,
   onClick,
   expanded,
+  franchiseId,
 }: Props) {
+  const sigil = getSigilUrl(
+    [entry.series, entry.title],
+    undefined,
+    franchiseId,
+  );
   const content = (
     <>
       <div className="flex w-12 shrink-0 flex-col items-center border-r border-dashed border-ink/25 pr-3 sm:w-16">
@@ -69,6 +77,16 @@ export default function EntryCard({
           </p>
         )}
       </div>
+      {sigil && (
+        <div className="flex w-14 shrink-0 items-center justify-center sm:w-20">
+          <img
+            src={sigil}
+            alt=""
+            aria-hidden="true"
+            className="max-h-14 max-w-full object-contain sm:max-h-20"
+          />
+        </div>
+      )}
     </>
   );
 

@@ -168,6 +168,7 @@ export default function FilmStrip({ franchise, mode }: Props) {
                           entry={entry}
                           accent={franchise.accent}
                           displayOrder={index + 1}
+                          franchiseId={franchise.id}
                         />
                       </li>
                     );
@@ -195,6 +196,7 @@ export default function FilmStrip({ franchise, mode }: Props) {
               accent={franchise.accent}
               displayOrder={i + 1}
               episodes={getSeriesEpisodes(entry, franchise.entries)}
+              franchiseId={franchise.id}
             />
           ))}
         </ol>
@@ -218,6 +220,7 @@ export default function FilmStrip({ franchise, mode }: Props) {
             accent={franchise.accent}
             displayOrder={index + 1}
             episodes={getSeriesEpisodes(entry, franchise.entries)}
+            franchiseId={franchise.id}
           />
         ))}
       </ol>

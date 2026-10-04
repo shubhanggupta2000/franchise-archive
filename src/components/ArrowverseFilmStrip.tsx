@@ -103,6 +103,7 @@ export default function ArrowverseFilmStrip({ franchise, mode }: Props) {
             accent={franchise.accent}
             displayOrder={index + 1}
             episodes={season.episodes}
+            franchiseId={franchise.id}
           />
         ))}
       </ol>
