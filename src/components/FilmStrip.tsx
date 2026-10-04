@@ -1,28 +1,24 @@
-import { useState } from "react";
+import { lazy, Suspense } from "react";
 import type { Entry, Franchise } from "../data/types";
-import ArrowverseChronology from "./ArrowverseChronology";
 import EntryCard from "./EntryCard";
 import type { OrderMode } from "./OrderToggle";
+import SeriesSeasonCard from "./SeriesSeasonCard";
+import type { SeriesEpisode } from "./SeriesEpisodeCard";
+
+const ArrowverseFilmStrip = lazy(() => import("./ArrowverseFilmStrip"));
 
 interface Props {
   franchise: Franchise;
   mode: OrderMode;
 }
 
-function ExpandableSeasonEntry({
-  entry,
-  entries,
-  accent,
-  displayOrder,
-}: {
-  entry: Entry;
-  entries: Entry[];
-  accent: string;
-  displayOrder: number;
-}) {
-  const [expanded, setExpanded] = useState(false);
+function getSeriesEpisodes(
+  entry: Entry,
+  entries: Entry[],
+): SeriesEpisode[] {
+  if (!entry.series || entry.season === undefined) return [];
 
-  const episodes = entries
+  return entries
     .filter(
       (item) =>
         item.type === "Episode" &&
@@ -32,90 +28,82 @@ function ExpandableSeasonEntry({
         (entry.episodeTo === undefined ||
           (item.episode ?? 0) <= entry.episodeTo),
     )
-    .sort((a, b) => (a.episode ?? 0) - (b.episode ?? 0));
-
-  return (
-    <li>
-      <EntryCard
-        entry={entry}
-        accent={accent}
-        displayOrder={displayOrder}
-        onClick={
-          episodes.length ? () => setExpanded((open) => !open) : undefined
-        }
-        expanded={expanded}
-      />
-
-      {expanded && episodes.length > 0 && (
-        <ol className="ml-8 mt-3 border-l-2 border-paper/20 pl-4">
-          {episodes.map((episode) => (
-            <li key={episode.id} className="flex gap-4 py-3">
-              <span className="font-mono text-paper/50">{episode.episode}</span>
-              <div>
-                <p className="font-display text-lg uppercase">
-                  {episode.title}
-                </p>
-                <p className="font-mono text-xs text-paper/50">
-                  {episode.dateLabel}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      )}
-    </li>
-  );
+    .sort((a, b) => (a.episode ?? 0) - (b.episode ?? 0))
+    .map((episode) => ({
+      id: episode.id,
+      show: episode.series ?? entry.series ?? "",
+      season: episode.season ?? entry.season ?? 0,
+      episode: episode.episode ?? 0,
+      title: episode.title,
+      year: episode.year,
+      dateLabel: episode.dateLabel,
+      crossover: episode.crossover,
+    }));
 }
 
-function collapseAgentsOfShieldReleaseSeasons(
-  entries: Entry[],
-  allEntries: Entry[],
-): Entry[] {
-  const seenSeasons = new Set<number>();
+function collapseSplitSeasons(entries: Entry[]): Entry[] {
+  const groups = new Map<string, Entry[]>();
+  for (const entry of entries) {
+    if (!entry.series || entry.season === undefined) continue;
+    const key = `${entry.series}:${entry.season}`;
+    groups.set(key, [...(groups.get(key) ?? []), entry]);
+  }
 
-  return [...entries]
-    .sort((a, b) => a.releaseOrder - b.releaseOrder)
-    .filter((entry) => {
-      if (
-        entry.series !== "Agents of S.H.I.E.L.D." ||
-        entry.season === undefined
-      ) {
-        return true;
-      }
+  const seen = new Set<string>();
+  return entries.flatMap((entry) => {
+    if (!entry.series || entry.season === undefined) return [entry];
 
-      if (seenSeasons.has(entry.season)) return false;
-      seenSeasons.add(entry.season);
-      return true;
-    })
-    .map((entry) => {
-      if (
-        entry.series !== "Agents of S.H.I.E.L.D." ||
-        entry.season === undefined
-      ) {
-        return entry;
-      }
+    const key = `${entry.series}:${entry.season}`;
+    if (seen.has(key)) return [];
+    seen.add(key);
 
-      const episodeCount = allEntries.filter(
-        (item) =>
-          item.type === "Episode" &&
-          item.series === entry.series &&
-          item.season === entry.season,
-      ).length;
+    const group = groups.get(key) ?? [entry];
+    const merged = group.length > 1;
+    const synopsis = [...new Set(group.map((item) => item.synopsis))].join(" ");
+    const notes = [
+      ...new Set(
+        group
+          .map((item) => item.note)
+          .filter((note): note is string => Boolean(note)),
+      ),
+    ];
 
-      return {
+    return [
+      {
         ...entry,
-        id: `mcu-agents-of-shield-s${entry.season}-release`,
-        title: `Agents of S.H.I.E.L.D.: Season ${entry.season}`,
-        episodeFrom: undefined,
-        episodeTo: undefined,
-        synopsis: `Full season of Agents of S.H.I.E.L.D. Select to view all ${episodeCount} episodes.`,
-      };
-    });
+        id: merged ? `${entry.series}-s${entry.season}-release` : entry.id,
+        title: `${entry.series}: Season ${entry.season}`,
+        dateLabel:
+          group.length > 1
+            ? `${group[0].dateLabel} · full season`
+            : entry.dateLabel,
+        synopsis,
+        note: merged
+          ? [
+              ...notes,
+              "Season shown as a whole in release order; its story-order segments remain in place.",
+            ].join(" ")
+          : entry.note,
+        episodeFrom: merged ? undefined : entry.episodeFrom,
+        episodeTo: merged ? undefined : entry.episodeTo,
+      },
+    ];
+  });
 }
 
 export default function FilmStrip({ franchise, mode }: Props) {
-  if (mode === "chrono" && franchise.id === "arrowverse") {
-    return <ArrowverseChronology />;
+  if (franchise.id === "arrowverse") {
+    return (
+      <Suspense
+        fallback={
+          <p className="font-mono text-xs text-paper/50">
+            Loading series chronology…
+          </p>
+        }
+      >
+        <ArrowverseFilmStrip franchise={franchise} mode={mode} />
+      </Suspense>
+    );
   }
   if (mode === "chrono" && franchise.id === "xmen") {
     const timelines = [
@@ -201,12 +189,12 @@ export default function FilmStrip({ franchise, mode }: Props) {
       <div className="film-rail relative pl-6 sm:pl-10">
         <ol className="flex flex-col gap-5">
           {sorted.map((entry, i) => (
-            <ExpandableSeasonEntry
+            <SeriesSeasonCard
               key={entry.id}
               entry={entry}
-              entries={franchise.entries}
               accent={franchise.accent}
               displayOrder={i + 1}
+              episodes={getSeriesEpisodes(entry, franchise.entries)}
             />
           ))}
         </ol>
@@ -214,47 +202,25 @@ export default function FilmStrip({ franchise, mode }: Props) {
     );
   }
 
-  const bySaga = franchise.sagas.map((saga) => ({
-    saga,
-    entries: collapseAgentsOfShieldReleaseSeasons(
-      franchise.entries
-        .filter((entry) => entry.saga === saga && entry.type !== "Episode")
-        .sort((a, b) => a.releaseOrder - b.releaseOrder),
-      franchise.entries,
-    ),
-  }));
+  const releaseOrder = collapseSplitSeasons(
+    franchise.entries
+      .filter((entry) => entry.type !== "Episode")
+      .sort((a, b) => a.releaseOrder - b.releaseOrder),
+  );
 
   return (
-    <div className="flex flex-col gap-8">
-      {bySaga
-        .filter((group) => group.entries.length > 0)
-        .map((group) => (
-          <div key={group.saga}>
-            <div className="mb-3 flex items-center gap-3">
-              <h3 className="font-display text-lg tracking-[0.15em] text-gold-bright uppercase sm:text-xl">
-                {group.saga}
-              </h3>
-              <div className="h-px flex-1 bg-paper/15" aria-hidden="true" />
-              <span className="font-mono text-[11px] text-paper/45">
-                {group.entries.length}{" "}
-                {group.entries.length === 1 ? "entry" : "entries"}
-              </span>
-            </div>
-            <div className="film-rail relative pl-6 sm:pl-10">
-              <ol className="flex flex-col gap-5">
-                {group.entries.map((entry) => (
-                  <ExpandableSeasonEntry
-                    key={entry.id}
-                    entry={entry}
-                    entries={franchise.entries}
-                    accent={franchise.accent}
-                    displayOrder={entry.releaseOrder}
-                  />
-                ))}
-              </ol>
-            </div>
-          </div>
+    <div className="film-rail relative pl-6 sm:pl-10">
+      <ol className="flex flex-col gap-5">
+        {releaseOrder.map((entry, index) => (
+          <SeriesSeasonCard
+            key={entry.id}
+            entry={entry}
+            accent={franchise.accent}
+            displayOrder={index + 1}
+            episodes={getSeriesEpisodes(entry, franchise.entries)}
+          />
         ))}
+      </ol>
     </div>
   );
 }
